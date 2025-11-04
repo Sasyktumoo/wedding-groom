@@ -5,6 +5,7 @@ import Image from "next/image";
 import { staggerContainer, fadeInUp, scaleIn } from "@/lib/animations";
 import TypewriterText from "./TypewriterText";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface HeroProps {
   showIntro?: boolean;
@@ -12,6 +13,7 @@ interface HeroProps {
 
 export default function Hero({ showIntro = false }: HeroProps) {
   const [textStage, setTextStage] = useState(0);
+  const { t } = useLanguage();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#faf9f6] via-[#f5f4f1] to-[#faf9f6]">
@@ -55,7 +57,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
               {showIntro ? (
                 <p className="heading-serif text-xl sm:text-2xl md:text-3xl font-normal text-[#2c3e50] mb-0 tracking-wide">
                   <TypewriterText 
-                    text="Dear Guests" 
+                    text={t.hero.greeting} 
                     delay={1500}
                     speed={80}
                     onComplete={() => setTextStage(1)}
@@ -63,7 +65,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
                 </p>
               ) : (
                 <p className="heading-serif text-xl sm:text-2xl md:text-3xl font-normal text-[#2c3e50] mb-0 tracking-wide">
-                  Dear Guests
+                  {t.hero.greeting}
                 </p>
               )}
             </motion.div>
@@ -80,7 +82,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
                 {showIntro ? (
                   <p className="heading-serif text-base sm:text-lg md:text-xl lg:text-2xl font-light text-[#2c3e50] leading-relaxed mb-0">
                     <TypewriterText 
-                      text="We are honored to invite you to celebrate the wedding of our children" 
+                      text={t.hero.invitation} 
                       delay={300}
                       speed={40}
                       onComplete={() => setTextStage(2)}
@@ -88,7 +90,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
                   </p>
                 ) : (
                   <p className="heading-serif text-base sm:text-lg md:text-xl lg:text-2xl font-light text-[#2c3e50] leading-relaxed mb-0">
-                    We are honored to invite you to celebrate the wedding of our children
+                    {t.hero.invitation}
                   </p>
                 )}
               </motion.div>
@@ -106,29 +108,55 @@ export default function Hero({ showIntro = false }: HeroProps) {
                 {showIntro ? (
                   <h1 className="heading-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#d4af37] leading-tight">
                     <TypewriterText 
-                      text="Myrzabek & Aigerim" 
+                      text={`${t.hero.groomName} & ${t.hero.brideName}`} 
                       delay={300}
                       speed={100}
-                      onComplete={() => setTextStage(3)}
+                      onComplete={() => setTextStage(t.hero.weddingText ? 3 : 4)}
                     />
                   </h1>
                 ) : (
                   <h1 className="heading-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#d4af37] leading-tight">
-                    Myrzabek & Aigerim
+                    {t.hero.groomName} & {t.hero.brideName}
                   </h1>
                 )}
               </motion.div>
             )}
 
+            {/* Wedding Text (continuation after names) */}
+            {t.hero.weddingText && (!showIntro || textStage >= 3) && (
+              <motion.div 
+                variants={!showIntro ? fadeInUp : undefined}
+                initial={showIntro ? { opacity: 0 } : undefined}
+                animate={showIntro ? { opacity: 1 } : undefined}
+                transition={showIntro ? { delay: 0.3, duration: 0.5 } : undefined}
+                className="mb-6 sm:mb-8 md:mb-10"
+              >
+                {showIntro ? (
+                  <p className="heading-serif text-base sm:text-lg md:text-xl lg:text-2xl font-light text-[#2c3e50] leading-relaxed mb-0">
+                    <TypewriterText 
+                      text={t.hero.weddingText} 
+                      delay={300}
+                      speed={40}
+                      onComplete={() => setTextStage(4)}
+                    />
+                  </p>
+                ) : (
+                  <p className="heading-serif text-base sm:text-lg md:text-xl lg:text-2xl font-light text-[#2c3e50] leading-relaxed mb-0">
+                    {t.hero.weddingText}
+                  </p>
+                )}
+              </motion.div>
+            )}
+
             {/* Divider */}
-            {(!showIntro || textStage >= 3) && (
+            {(!showIntro || textStage >= 4) && (
               <motion.div 
                 variants={!showIntro ? fadeInUp : undefined}
                 initial={showIntro ? { opacity: 0, scaleX: 0 } : undefined}
                 animate={showIntro ? { opacity: 1, scaleX: 1 } : undefined}
                 transition={showIntro ? { delay: 0.3, duration: 0.8 } : undefined}
                 className="flex items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-8"
-                onAnimationComplete={() => showIntro && setTextStage(4)}
+                onAnimationComplete={() => showIntro && setTextStage(5)}
               >
                 <div className="h-px flex-1 max-w-[80px] sm:max-w-none bg-[#d4af37]"></div>
                 <div className="w-2 h-2 rounded-full bg-[#d4af37]"></div>
@@ -137,7 +165,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
             )}
 
             {/* Closing Message */}
-            {(!showIntro || textStage >= 4) && (
+            {(!showIntro || textStage >= 5) && (
               <motion.div 
                 variants={!showIntro ? fadeInUp : undefined}
                 initial={showIntro ? { opacity: 0 } : undefined}
@@ -147,14 +175,14 @@ export default function Hero({ showIntro = false }: HeroProps) {
                 {showIntro ? (
                   <p className="heading-serif text-base sm:text-lg md:text-xl font-light text-[#2c3e50] leading-relaxed mb-0">
                     <TypewriterText 
-                      text="Your presence would be a great honor as we begin this beautiful journey together" 
+                      text={t.hero.honor} 
                       delay={300}
                       speed={35}
                     />
                   </p>
                 ) : (
                   <p className="heading-serif text-base sm:text-lg md:text-xl font-light text-[#2c3e50] leading-relaxed mb-0">
-                    Your presence would be a great honor as we begin this beautiful journey together
+                    {t.hero.honor}
                   </p>
                 )}
               </motion.div>

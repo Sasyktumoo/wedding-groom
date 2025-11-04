@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { fadeIn } from "@/lib/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+  
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -23,14 +26,14 @@ export default function Footer() {
           <p 
             className="heading-serif text-base sm:text-lg md:text-xl font-light text-white mb-3 sm:mb-4 opacity-90"
           >
-            You were invited with respect by
+            {t.footer.invitedBy}
           </p>
 
           {/* Parents' Names */}
           <h3 
             className="heading-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#d4af37] mb-6 sm:mb-8"
           >
-            Kenzhebek & Zhyldyz
+            {t.footer.fatherName} & {t.footer.motherName}
           </h3>
 
           {/* Divider */}
@@ -42,7 +45,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-xs sm:text-sm text-gray-400">
-            © {new Date().getFullYear()} With love and gratitude
+            © {new Date().getFullYear()} {t.footer.gratitude}
           </p>
         </div>
       </motion.div>

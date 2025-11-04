@@ -2,6 +2,7 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
+import FallingPetals from "./FallingPetals";
 
 interface EnvelopeIntroProps {
   onComplete: () => void;
@@ -10,6 +11,7 @@ interface EnvelopeIntroProps {
 export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
   const [stage, setStage] = useState<'envelope' | 'opening' | 'plane' | 'done'>('envelope');
   const controls = useAnimation();
+  const [showPetals, setShowPetals] = useState(false);
 
   useEffect(() => {
     const sequence = async () => {
@@ -27,8 +29,9 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
       setStage('opening');
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Stage 3: Paper plane flies out (2.3-5.3s)
+      // Stage 3: Petals start falling (2.3-5.3s)
       setStage('plane');
+      setShowPetals(true);
       await new Promise(resolve => setTimeout(resolve, 3000));
 
       // Stage 4: Fade out and complete (5.3-6.3s)
@@ -48,326 +51,249 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
       animate={stage === 'done' ? { opacity: 0 } : { opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-full h-full flex items-center justify-center" style={{ perspective: "1200px" }}>
         
-        {/* Envelope */}
+        {/* Envelope Container */}
         <motion.div
           animate={controls}
-          className="relative w-full max-w-[320px] sm:max-w-[400px]"
+          className="relative w-full max-w-[400px] sm:max-w-[500px]"
+          style={{ transformStyle: "preserve-3d" }}
         >
-          {/* Envelope Body */}
+          {/* Envelope Body - 3D */}
           <motion.div
             className="relative"
             animate={stage === 'plane' || stage === 'done' ? { 
               opacity: 0, 
-              scale: 0.8,
-              y: 50 
+              scale: 0.85,
+              y: 60 
             } : {}}
             transition={{ duration: 1, ease: "easeOut" }}
+            style={{ transformStyle: "preserve-3d" }}
           >
-            {/* Back of envelope */}
+            {/* Main envelope with luxury styling */}
             <svg
               width="100%"
               height="auto"
-              viewBox="0 0 320 220"
+              viewBox="0 0 400 280"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="drop-shadow-2xl"
+              style={{ 
+                filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.25)) drop-shadow(0 10px 25px rgba(212,175,55,0.15))"
+              }}
             >
-              {/* Envelope back */}
+              <defs>
+                {/* Gradients for realistic paper */}
+                <linearGradient id="envelopeBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: "#fdfcfa", stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: "#f8f6f1", stopOpacity: 1 }} />
+                </linearGradient>
+                
+                <linearGradient id="flapGradient" x1="50%" y1="0%" x2="50%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: "#fffef9", stopOpacity: 1 }} />
+                  <stop offset="50%" style={{ stopColor: "#f5f1e8", stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: "#ebe7dc", stopOpacity: 1 }} />
+                </linearGradient>
+
+                <linearGradient id="waxGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style={{ stopColor: "#e8c76a", stopOpacity: 1 }} />
+                  <stop offset="50%" style={{ stopColor: "#d4af37", stopOpacity: 1 }} />
+                  <stop offset="100%" style={{ stopColor: "#b8964d", stopOpacity: 1 }} />
+                </linearGradient>
+
+                {/* Inner shadow for depth */}
+                <filter id="innerShadow">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                  <feOffset dx="0" dy="2" result="offsetblur"/>
+                  <feComponentTransfer>
+                    <feFuncA type="linear" slope="0.3"/>
+                  </feComponentTransfer>
+                  <feMerge>
+                    <feMergeNode/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Envelope back panel with border design */}
               <rect
-                x="10"
-                y="30"
-                width="300"
-                height="180"
-                fill="#fdfbf7"
+                x="20"
+                y="50"
+                width="360"
+                height="210"
+                rx="4"
+                fill="url(#envelopeBody)"
                 stroke="#d4af37"
-                strokeWidth="2"
-              />
-              
-              {/* Envelope flap - animates open */}
-              <motion.path
-                d="M10 30 L160 120 L310 30"
-                fill="#f5f1e8"
-                stroke="#d4af37"
-                strokeWidth="2"
-                initial={{ d: "M10 30 L160 120 L310 30" }}
-                animate={stage === 'opening' || stage === 'plane' || stage === 'done' ? {
-                  d: "M10 30 L160 10 L310 30"
-                } : {}}
-                transition={{ duration: 1, ease: "easeInOut" }}
+                strokeWidth="1.5"
               />
 
-              {/* Decorative wax seal */}
-              <motion.circle
-                cx="160"
-                cy="30"
-                r="20"
-                fill="#d4af37"
-                opacity="0.9"
-                initial={{ scale: 1 }}
-                animate={stage === 'opening' || stage === 'plane' || stage === 'done' ? {
-                  scale: 0,
-                  opacity: 0
-                } : {}}
-                transition={{ duration: 0.5 }}
+              {/* Inner decorative border */}
+              <rect
+                x="30"
+                y="60"
+                width="340"
+                height="190"
+                rx="2"
+                fill="none"
+                stroke="#d4af37"
+                strokeWidth="0.5"
+                opacity="0.4"
               />
-              <motion.text
-                x="160"
-                y="38"
-                textAnchor="middle"
-                fill="#2c3e50"
-                fontSize="20"
-                fontFamily="serif"
-                fontWeight="bold"
+
+              {/* Ornamental corner decorations */}
+              <g opacity="0.7">
+                <path d="M 35 65 L 50 65 M 35 65 L 35 80" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="35" cy="65" r="3" fill="#d4af37"/>
+                
+                <path d="M 365 65 L 350 65 M 365 65 L 365 80" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="365" cy="65" r="3" fill="#d4af37"/>
+                
+                <path d="M 35 245 L 50 245 M 35 245 L 35 230" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="35" cy="245" r="3" fill="#d4af37"/>
+                
+                <path d="M 365 245 L 350 245 M 365 245 L 365 230" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round"/>
+                <circle cx="365" cy="245" r="3" fill="#d4af37"/>
+              </g>
+
+              {/* Decorative flourish at bottom center */}
+              <g opacity="0.6" transform="translate(200, 240)">
+                <path 
+                  d="M -30 0 Q -20 -8, 0 -10 Q 20 -8, 30 0" 
+                  stroke="#d4af37" 
+                  strokeWidth="1" 
+                  fill="none"
+                />
+                <circle cx="-25" cy="-2" r="2" fill="#d4af37"/>
+                <circle cx="0" cy="-10" r="2.5" fill="#d4af37"/>
+                <circle cx="25" cy="-2" r="2" fill="#d4af37"/>
+              </g>
+
+              {/* Letter inside (visible when opening) */}
+              <motion.g
+                initial={{ opacity: 0, y: 20 }}
+                animate={stage === 'opening' || stage === 'plane' || stage === 'done' ? {
+                  opacity: 1,
+                  y: 0
+                } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                <rect
+                  x="60"
+                  y="80"
+                  width="280"
+                  height="150"
+                  rx="3"
+                  fill="#fffef9"
+                  stroke="#e8e6e0"
+                  strokeWidth="1"
+                  filter="url(#innerShadow)"
+                />
+                <text
+                  x="200"
+                  y="120"
+                  textAnchor="middle"
+                  fill="#d4af37"
+                  fontSize="28"
+                  fontFamily="'Great Vibes', cursive"
+                  fontWeight="400"
+                >
+                  M & A
+                </text>
+                <line x1="120" y1="145" x2="280" y2="145" stroke="#d4af37" strokeWidth="0.5" opacity="0.4"/>
+                <text
+                  x="200"
+                  y="170"
+                  textAnchor="middle"
+                  fill="#2c3e50"
+                  fontSize="14"
+                  fontFamily="serif"
+                  opacity="0.7"
+                >
+                  Тойго Чыгарабыз!
+                </text>
+              </motion.g>
+
+              {/* Animated envelope flap with 3D effect */}
+              <motion.path
+                d="M20 50 L200 160 L380 50"
+                fill="url(#flapGradient)"
+                stroke="#d4af37"
+                strokeWidth="1.5"
+                initial={{ d: "M20 50 L200 160 L380 50" }}
+                animate={stage === 'opening' || stage === 'plane' || stage === 'done' ? {
+                  d: "M20 50 L200 20 L380 50"
+                } : {}}
+                transition={{ duration: 1.2, ease: [0.43, 0.13, 0.23, 0.96] }}
+                style={{ 
+                  filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.15))"
+                }}
+              />
+
+              {/* Flap crease line for realism */}
+              <motion.line
+                x1="20"
+                y1="50"
+                x2="380"
+                y2="50"
+                stroke="#d4af37"
+                strokeWidth="0.5"
+                opacity="0.3"
+              />
+
+              {/* Luxury wax seal with detailed design */}
+              <motion.g
                 initial={{ scale: 1, opacity: 1 }}
                 animate={stage === 'opening' || stage === 'plane' || stage === 'done' ? {
                   scale: 0,
                   opacity: 0
                 } : {}}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.6, ease: "backIn" }}
               >
-                M & A
-              </motion.text>
-
-              {/* Decorative corner flourishes */}
-              <path
-                d="M 20 40 Q 25 40 25 45 Q 25 40 30 40"
-                stroke="#d4af37"
-                strokeWidth="1"
-                fill="none"
-                opacity="0.6"
-              />
-              <path
-                d="M 290 40 Q 295 40 295 45 Q 295 40 300 40"
-                stroke="#d4af37"
-                strokeWidth="1"
-                fill="none"
-                opacity="0.6"
-              />
+                {/* Wax seal base */}
+                <circle
+                  cx="200"
+                  cy="50"
+                  r="28"
+                  fill="url(#waxGradient)"
+                  style={{ 
+                    filter: "drop-shadow(0 4px 8px rgba(180, 140, 50, 0.4))"
+                  }}
+                />
+                
+                {/* Wax texture details */}
+                <circle cx="200" cy="50" r="26" fill="none" stroke="#c9a962" strokeWidth="0.5" opacity="0.3"/>
+                <circle cx="200" cy="50" r="22" fill="none" stroke="#e8c76a" strokeWidth="0.5" opacity="0.4"/>
+                
+                {/* Monogram in seal */}
+                <text
+                  x="200"
+                  y="58"
+                  textAnchor="middle"
+                  fill="#2c3e50"
+                  fontSize="24"
+                  fontFamily="'Great Vibes', cursive"
+                  fontWeight="600"
+                  opacity="0.9"
+                >
+                  M&A
+                </text>
+                
+                {/* Decorative seal border */}
+                <circle 
+                  cx="200" 
+                  cy="50" 
+                  r="28" 
+                  fill="none" 
+                  stroke="#b8964d" 
+                  strokeWidth="1" 
+                  opacity="0.6"
+                />
+              </motion.g>
             </svg>
           </motion.div>
         </motion.div>
 
-        {/* Falling Rose Petals */}
-        {(stage === 'plane' || stage === 'done') && (
-          <>
-            {/* Petal 1 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, -80, -120, -100],
-                y: [0, 150, 350, 500],
-                scale: [0, 1, 1, 0.8],
-                opacity: [0, 0.9, 0.8, 0],
-                rotate: [0, 180, 360, 540],
-              }}
-              transition={{
-                duration: 2.8,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-              }}
-            >
-              <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.85"
-                />
-              </svg>
-            </motion.div>
-
-            {/* Petal 2 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, 60, 100, 90],
-                y: [0, 180, 380, 520],
-                scale: [0, 1.2, 1.2, 0.9],
-                opacity: [0, 0.8, 0.7, 0],
-                rotate: [0, -150, -300, -450],
-              }}
-              transition={{
-                duration: 3,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-                delay: 0.1,
-              }}
-            >
-              <svg width="28" height="32" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.8"
-                />
-              </svg>
-            </motion.div>
-
-            {/* Petal 3 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, 20, -40, -60],
-                y: [0, 140, 320, 480],
-                scale: [0, 0.9, 0.9, 0.7],
-                opacity: [0, 0.85, 0.75, 0],
-                rotate: [0, 120, 280, 400],
-              }}
-              transition={{
-                duration: 2.7,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-                delay: 0.2,
-              }}
-            >
-              <svg width="20" height="24" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.9"
-                />
-              </svg>
-            </motion.div>
-
-            {/* Petal 4 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, -40, -80, -70],
-                y: [0, 160, 360, 500],
-                scale: [0, 1.1, 1.1, 0.85],
-                opacity: [0, 0.9, 0.8, 0],
-                rotate: [0, -200, -380, -560],
-              }}
-              transition={{
-                duration: 2.9,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-                delay: 0.15,
-              }}
-            >
-              <svg width="26" height="30" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.8"
-                />
-              </svg>
-            </motion.div>
-
-            {/* Petal 5 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, 90, 140, 130],
-                y: [0, 170, 370, 510],
-                scale: [0, 1, 1, 0.8],
-                opacity: [0, 0.85, 0.75, 0],
-                rotate: [0, 160, 340, 500],
-              }}
-              transition={{
-                duration: 2.8,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-                delay: 0.25,
-              }}
-            >
-              <svg width="22" height="26" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.85"
-                />
-              </svg>
-            </motion.div>
-
-            {/* Petal 6 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, -10, 30, 40],
-                y: [0, 150, 340, 490],
-                scale: [0, 0.95, 0.95, 0.75],
-                opacity: [0, 0.9, 0.8, 0],
-                rotate: [0, -180, -340, -520],
-              }}
-              transition={{
-                duration: 2.75,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-                delay: 0.3,
-              }}
-            >
-              <svg width="20" height="24" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.9"
-                />
-              </svg>
-            </motion.div>
-
-            {/* Petal 7 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, 50, 70, 60],
-                y: [0, 190, 390, 530],
-                scale: [0, 1.15, 1.15, 0.9],
-                opacity: [0, 0.85, 0.75, 0],
-                rotate: [0, 200, 400, 580],
-              }}
-              transition={{
-                duration: 3,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-                delay: 0.05,
-              }}
-            >
-              <svg width="27" height="31" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.8"
-                />
-              </svg>
-            </motion.div>
-
-            {/* Petal 8 */}
-            <motion.div
-              className="absolute"
-              initial={{ x: 0, y: 0, scale: 0, opacity: 0, rotate: 0 }}
-              animate={{
-                x: [0, -60, -90, -80],
-                y: [0, 165, 365, 505],
-                scale: [0, 1.05, 1.05, 0.85],
-                opacity: [0, 0.9, 0.8, 0],
-                rotate: [0, -170, -350, -510],
-              }}
-              transition={{
-                duration: 2.85,
-                ease: "easeInOut",
-                times: [0, 0.3, 0.7, 1],
-                delay: 0.35,
-              }}
-            >
-              <svg width="23" height="27" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M12 2C12 2 4 8 4 14C4 18 7 22 12 24C17 22 20 18 20 14C20 8 12 2 12 2Z"
-                  fill="#d4af37"
-                  opacity="0.85"
-                />
-              </svg>
-            </motion.div>
-          </>
-        )}
+        {/* Falling Petals */}
+        {showPetals && <FallingPetals />}
 
         {/* Subtle sparkles */}
         {stage === 'plane' && (

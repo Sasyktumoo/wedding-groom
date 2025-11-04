@@ -11,16 +11,22 @@
 ## Project Structure
 ```
 /app
-  layout.tsx          # Root layout with fonts (Inter, Playfair Display, Great Vibes)
+  layout.tsx          # Root layout with fonts (Inter, Playfair Display, Great Vibes) + LanguageProvider
   page.tsx            # Main page orchestration (EnvelopeIntro → Hero → EventDetails → Footer)
   globals.css         # Global styles, color palette, custom scrollbar
 /components
   EnvelopeIntro.tsx   # Opening animation with envelope and paper plane
   TypewriterText.tsx  # Reusable typewriter text effect component
   BackgroundMusic.tsx # Automatic background music (no controls)
-  Hero.tsx            # Wedding invitation with proposal photo and typewriter text
-  EventDetails.tsx    # Premium event details with sunset background, glassmorphism, parallax
-  Footer.tsx          # Minimal footer with names
+  LanguageSwitcher.tsx # Language toggle button (KGZ/RU) at top-right corner
+  Hero.tsx            # Wedding invitation with proposal photo and typewriter text (i18n)
+  EventDetails.tsx    # Premium event details with sunset background, glassmorphism, parallax (i18n)
+  Footer.tsx          # Minimal footer with names (i18n)
+/contexts
+  LanguageContext.tsx # Language state management and translation provider
+/locales
+  kgz.json            # Kyrgyz translations (default language)
+  ru.json             # Russian translations
 /lib
   animations.ts       # Framer Motion variants
   theme.ts            # Centralized typography theme configuration
@@ -33,6 +39,25 @@ next.config.mjs       # Next.js config (converted from .ts)
 ```
 
 ## Implemented Features
+
+### Internationalization (i18n)
+- **Multi-language support**: Kyrgyz (default) and Russian
+- **Language switcher**: Fixed button at top-right corner
+  - Animated entrance (fade-in from top)
+  - Toggle between KGZ and RU
+  - Active language highlighted with gold gradient
+  - Smooth transitions
+- **Language persistence**: Selection saved to localStorage
+- **Translation system**:
+  - JSON-based translation files (kgz.json, ru.json)
+  - React Context API for state management
+  - useLanguage hook for accessing translations
+- **Content coverage**:
+  - Hero section: Greeting, invitation message, names, honor message
+  - EventDetails: Date, time, venue information
+  - Footer: Invitation message, parents' names, gratitude message
+- **Date format**: 06.01.2026 format, Bishkek location, Restaurant "..."
+- **Parents names**: Kenzhebek & Zhyldyz (Той ээси)
 
 ### Opening Animation Sequence
 - **Envelope intro animation** with paper plane
@@ -70,11 +95,11 @@ next.config.mjs       # Next.js config (converted from .ts)
   - Scale-in animation on load
   - Optimized image loading with responsive `sizes` attribute
 - **Clean gradient background** (off-white tones)
-- **Invitation Content:**
-  - "Dear Guests" (text-xl on mobile → text-3xl on desktop)
-  - "We are honored to invite you to celebrate the wedding of our children" (text-base → text-2xl)
-  - Names: Myrzabek & Aigerim (text-4xl → text-7xl with fluid scaling)
-  - "Your presence would be a great honor..." (text-base → text-xl)
+- **Invitation Content (i18n):**
+  - Greeting: "Урматтуу коноктор!" / "Уважаемые гости!" (text-xl on mobile → text-3xl on desktop)
+  - Invitation message with cultural respect and honor (text-base → text-2xl)
+  - Names: Мырзабек & Айгерим (text-4xl → text-7xl with fluid scaling)
+  - Honor message about sharing joy and blessings (text-base → text-xl)
 - **Design Elements:**
   - Navy text on light background (elegant Playfair Display serif)
   - NO blackish overlays or boxes - clean, minimalist design
@@ -100,19 +125,20 @@ next.config.mjs       # Next.js config (converted from .ts)
   - Staggered reveal animations with custom cubic-bezier easing
   - Floating entrance effects for cards
   - Ornamental line expansions (80px on mobile, 120px desktop)
-- **Card 1: Date & Time**
+- **Card 1: Date & Time (i18n)**
   - Unified glassmorphism card (bg-black/60 with backdrop blur)
   - Gold gradient calendar icon (w-16 mobile → w-24 desktop)
-  - "Save the Date" heading (text-2xl → text-4xl)
-  - Sunday, June 15, 2025 (text-xl → text-3xl)
-  - Ceremony begins at 4:00 PM (text-lg → text-2xl)
+  - "Датаны сактаңыз" / "Сохраните дату" heading (text-2xl → text-4xl)
+  - 2026-жылдын 6-январы / 6 января 2026 года (text-xl → text-3xl)
+  - Убакыт: 16:00 / Время: 16:00 (text-lg → text-2xl)
   - Responsive padding (p-6 sm:p-8 md:p-10)
   - Responsive border radius (rounded-xl sm:rounded-2xl)
-- **Card 2: Venue Information**
+- **Card 2: Venue Information (i18n)**
   - Same responsive treatment as Card 1
   - Gold gradient location icon with border
-  - "The Grand Estate" heading (text-2xl → text-4xl)
-  - Full address with responsive text sizing
+  - "Дарек" / "Адрес" heading (text-2xl → text-4xl)
+  - Ресторан "..." (text-lg → text-2xl)
+  - Бишкек шаары / г. Бишкек (text-base → text-xl)
 - **Design Elements:**
   - Clean card-based layout (no scattered backgrounds)
   - Gradient overlays for readability (black/40-60%)
@@ -121,8 +147,8 @@ next.config.mjs       # Next.js config (converted from .ts)
   - Bottom gradient fade transition (h-24 sm:h-32)
 
 ### Footer
-- **Invitation closing message**: "You were invited with respect by" (text-base → text-xl)
-- **Parents' names**: Kenzhebek & Zhyldyz (text-4xl → text-7xl, fluid scaling)
+- **Invitation closing message (i18n)**: "Урматтоо менен той ээлери:" / "С уважением, той ээси:" (text-base → text-xl)
+- **Parents' names**: Кенжебек & Жылдыз (text-4xl → text-7xl, fluid scaling)
 - Decorative divider with gold accents (responsive widths)
 - Copyright text with gratitude message (text-xs → text-sm)
 - Navy background (#2c3e50)
@@ -249,4 +275,8 @@ npm start      # Start production server
 - **Background music**: Royalty-free music from Incompetech (Creative Commons license)
 - **Music playback**: Automatic on page load, continuous loop, no visible controls
 - **Audio file size**: 8.4MB MP3, optimized for web streaming
+- **Internationalization**: All text content managed through JSON translation files
+- **Language switching**: Instant language switching without page reload
+- **Default language**: Kyrgyz (kgz) - loads automatically on first visit
+- **Language persistence**: User's language choice saved to localStorage
 

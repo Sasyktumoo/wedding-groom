@@ -11,8 +11,11 @@ import {
   revealFromCenter,
   staggerContainerFast,
 } from "@/lib/animations";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function EventDetails() {
+  const { t } = useLanguage();
+  
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -130,21 +133,21 @@ export default function EventDetails() {
                 <h3 
                   className="heading-serif text-2xl sm:text-3xl md:text-4xl font-normal text-white mb-4 sm:mb-6"
                 >
-                  Save the Date
+                  {t.eventDetails.saveTheDate}
                 </h3>
 
                 {/* Date */}
                 <p 
                   className="text-xl sm:text-2xl md:text-3xl font-light text-white tracking-wide mb-3 sm:mb-4"
                 >
-                  Sunday, June 15, 2025
+                  {t.eventDetails.dateFull}
                 </p>
 
                 {/* Time */}
                 <p 
                   className="text-lg sm:text-xl md:text-2xl font-normal text-white mb-0 opacity-90"
                 >
-                  Ceremony begins at 4:00 PM
+                  {t.eventDetails.time}
                 </p>
               </div>
             </motion.div>
@@ -182,21 +185,21 @@ export default function EventDetails() {
                 <h3 
                   className="heading-serif text-2xl sm:text-3xl md:text-4xl font-normal text-white mb-4 sm:mb-6"
                 >
-                  The Grand Estate
+                  {t.eventDetails.venue}
                 </h3>
 
                 {/* Address */}
                 <p 
                   className="text-lg sm:text-xl md:text-2xl font-light text-white mb-2 sm:mb-3"
                 >
-                  1234 Vineyard Lane
+                  {t.eventDetails.venueName}
                 </p>
 
                 {/* City/State */}
                 <p 
                   className="text-base sm:text-lg md:text-xl font-normal text-white mb-0 opacity-90"
                 >
-                  Napa Valley, CA 94558
+                  {t.eventDetails.venueAddress}
                 </p>
               </div>
             </motion.div>
