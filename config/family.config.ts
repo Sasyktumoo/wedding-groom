@@ -1,7 +1,10 @@
 // Wedding Family Configuration
 // Change this setting to switch between groom's and bride's parents
 
-export const FAMILY_SIDE: 'groom' | 'bride' = 'groom'; // Change to 'bride' for bride's version
+type FamilySide = 'groom' | 'bride';
+
+// Using let instead of const to avoid TypeScript literal type narrowing
+export let FAMILY_SIDE: FamilySide = 'groom'; // Change to 'bride' for bride's version
 
 // Groom's Parents
 export const GROOM_PARENTS = {
@@ -29,7 +32,8 @@ export const BRIDE_PARENTS = {
 
 // Get current family based on FAMILY_SIDE setting
 export const getCurrentFamily = (language: 'kgz' | 'ru') => {
-  const family = FAMILY_SIDE === 'groom' ? GROOM_PARENTS : BRIDE_PARENTS;
+  const currentSide: FamilySide = FAMILY_SIDE;
+  const family = currentSide === 'groom' ? GROOM_PARENTS : BRIDE_PARENTS;
   return family[language];
 };
 
