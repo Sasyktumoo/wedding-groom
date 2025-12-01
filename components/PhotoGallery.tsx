@@ -91,7 +91,7 @@ export default function PhotoGallery() {
                 </div>
                 
                 <blockquote className="heading-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-[#2c3e50] leading-relaxed italic">
-                  "{quotes.cute[language]}"
+                  &ldquo;{quotes.cute[language]}&rdquo;
                 </blockquote>
               </div>
             </motion.div>
