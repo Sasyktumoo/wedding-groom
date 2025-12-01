@@ -34,7 +34,7 @@ export default function Home() {
       {showIntro && <EnvelopeIntro onComplete={handleIntroComplete} />}
       {introComplete && (
         <>
-          <HeroWithPhoto />
+          {/* <HeroWithPhoto /> */}
           <Hero showIntro={false} />
           <EventDetails />
           <PhotoGallery />

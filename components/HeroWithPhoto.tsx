@@ -92,6 +92,14 @@ export default function HeroWithPhoto() {
             >
               {t.eventDetails.time}
             </p>
+            <p 
+              className="body-text text-lg sm:text-xl md:text-2xl font-light tracking-wide mt-2"
+              style={{
+                textShadow: '0 0 15px rgba(0,0,0,0.9), 2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.8)'
+              }}
+            >
+              {t.eventDetails.time2}
+            </p>
           </div>
 
           {/* Venue */}

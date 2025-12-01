@@ -138,16 +138,21 @@ export default function EventDetails() {
 
                 {/* Date */}
                 <p 
-                  className="text-xl sm:text-2xl md:text-3xl font-light text-white tracking-wide mb-3 sm:mb-4"
+                  className="text-lg sm:text-xl md:text-2xl font-light text-white mb-2 sm:mb-3"
                 >
                   {t.eventDetails.dateFull}
                 </p>
 
                 {/* Time */}
                 <p 
-                  className="text-lg sm:text-xl md:text-2xl font-normal text-white mb-0 opacity-90"
+                  className="text-lg sm:text-xl md:text-2xl font-light text-white mb-2 sm:mb-3"
                 >
                   {t.eventDetails.time}
+                </p>
+                <p 
+                  className="text-lg sm:text-xl md:text-2xl font-light text-white mb-0"
+                >
+                  {t.eventDetails.time2}
                 </p>
               </div>
             </motion.div>
@@ -197,10 +202,33 @@ export default function EventDetails() {
 
                 {/* City/State */}
                 <p 
-                  className="text-base sm:text-lg md:text-xl font-normal text-white mb-0 opacity-90"
+                  className="text-lg sm:text-xl md:text-2xl font-light text-white mb-4"
                 >
                   {t.eventDetails.venueAddress}
                 </p>
+
+                {/* Map Link */}
+                <a 
+                  href={t.eventDetails.venueMapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-base sm:text-lg font-light text-[#d4af37] hover:text-[#f4d03f] transition-colors duration-300 border border-[#d4af37] hover:border-[#f4d03f] px-4 py-2 rounded-lg"
+                >
+                  <svg 
+                    className="w-4 h-4 sm:w-5 sm:h-5" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" 
+                    />
+                  </svg>
+                  {t.eventDetails.viewOnMap}
+                </a>
               </div>
             </motion.div>
           </motion.div>
