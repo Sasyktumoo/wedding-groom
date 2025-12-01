@@ -208,7 +208,7 @@ export default function EnvelopeIntro({ onComplete }: EnvelopeIntroProps) {
                   fontFamily="serif"
                   opacity="0.7"
                 >
-                  Тойго Чыгарабыз!
+                  Тойго чакырабыз!
                 </text>
               </motion.g>
 

@@ -105,6 +105,7 @@ export default function BackgroundMusic() {
       ref={audioRef}
       loop
       preload="auto"
+      autoPlay
     >
       <source src="/audio/wedding-background.mp3" type="audio/mpeg" />
       Your browser does not support the audio element.
