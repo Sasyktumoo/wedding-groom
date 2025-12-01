@@ -25,12 +25,11 @@ export default function PhotoGallery() {
 
   return (
     <>
-      {/* First photo section - Picnic */}
-      <section ref={ref1} className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 md:py-24 bg-gradient-to-b from-[#faf9f6] via-[#f5f4f1] to-[#faf9f6]">
+      {/* First photo section - Picnic - HIDDEN */}
+      {/* <section ref={ref1} className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 md:py-24 bg-gradient-to-b from-[#faf9f6] via-[#f5f4f1] to-[#faf9f6]">
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             
-            {/* Photo - Left */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={inView1 ? { opacity: 1, x: 0 } : {}}
@@ -49,7 +48,6 @@ export default function PhotoGallery() {
               </div>
             </motion.div>
 
-            {/* Quote/Text - Right */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={inView1 ? { opacity: 1, x: 0 } : {}}
@@ -71,7 +69,7 @@ export default function PhotoGallery() {
 
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Second photo section - Cute */}
       <section ref={ref2} className="relative min-h-screen flex items-center justify-center py-16 sm:py-20 md:py-24 bg-gradient-to-b from-[#f5f4f1] via-[#faf9f6] to-[#f5f4f1]">

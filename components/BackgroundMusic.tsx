@@ -1,13 +1,18 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { useMusic } from "@/contexts/MusicContext";
 
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const { setAudioRef } = useMusic();
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    // Register audio ref with context
+    setAudioRef(audioRef);
 
     // Set volume
     audio.volume = 0.3;
@@ -93,7 +98,7 @@ export default function BackgroundMusic() {
       window.removeEventListener('focus', playOnInteraction);
       window.removeEventListener('mousemove', playOnInteraction);
     };
-  }, []);
+  }, [setAudioRef]);
 
   return (
     <audio

@@ -193,18 +193,18 @@ export default function EventDetails() {
                   {t.eventDetails.venue}
                 </h3>
 
-                {/* Address */}
+                {/* Full Address */}
                 <p 
                   className="text-lg sm:text-xl md:text-2xl font-light text-white mb-2 sm:mb-3"
                 >
-                  {t.eventDetails.venueName}
+                  {t.eventDetails.venueAddress}
                 </p>
 
-                {/* City/State */}
+                {/* Restaurant Name */}
                 <p 
                   className="text-lg sm:text-xl md:text-2xl font-light text-white mb-4"
                 >
-                  {t.eventDetails.venueAddress}
+                  {t.eventDetails.venueName}
                 </p>
 
                 {/* Map Link */}

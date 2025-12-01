@@ -36,7 +36,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
               className="mb-6 sm:mb-8"
             >
               {showIntro ? (
-                <h2 className="heading-serif text-xl sm:text-2xl md:text-3xl font-normal text-[#2c3e50] mb-0 tracking-wide">
+                <h2 className="heading-script text-3xl sm:text-4xl md:text-5xl text-[#2c3e50] mb-0 italic">
                   <TypewriterText 
                     text={t.hero.intro} 
                     delay={1000}
@@ -45,7 +45,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
                   />
                 </h2>
               ) : (
-                <h2 className="heading-serif text-xl sm:text-2xl md:text-3xl font-normal text-[#2c3e50] mb-0 tracking-wide">
+                <h2 className="heading-script text-3xl sm:text-4xl md:text-5xl text-[#2c3e50] mb-0 italic">
                   {t.hero.intro}
                 </h2>
               )}

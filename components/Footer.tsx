@@ -45,7 +45,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-xs sm:text-sm text-gray-400">
-            © {new Date().getFullYear()} {t.footer.gratitude}
+            © {t.footer.gratitude}
           </p>
         </div>
       </motion.div>

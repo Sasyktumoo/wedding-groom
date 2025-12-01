@@ -10,7 +10,8 @@
 
 ## Font Configuration
 - **Inter**: Latin + Cyrillic subsets (body text, practical information)
-- **Playfair Display**: Latin + Cyrillic subsets (headings, elegant text, and names)
+- **Playfair Display**: Latin + Cyrillic subsets (headings, elegant text)
+- **Great Vibes**: Script font for intro heading and names
 
 ## Project Structure
 ```
@@ -22,16 +23,18 @@
 /components
   EnvelopeIntro.tsx   # Opening animation with envelope and paper plane
   TypewriterText.tsx  # Reusable typewriter text effect component
-  BackgroundMusic.tsx # Automatic background music (no controls)
+  BackgroundMusic.tsx # Automatic background music with mute control via MusicContext
+  MusicControl.tsx    # Music mute/unmute button at top-left corner
   LanguageSwitcher.tsx # Language toggle button (KGZ/RU) at top-right corner
   HeroWithPhoto.tsx   # CURRENTLY HIDDEN: Full-screen hero with main photo.jpg + minimal event details (i18n)
   Hero.tsx            # First page: Text-only wedding invitation section with intro heading (i18n)
-  PhotoGallery.tsx    # Photo sections with picnic.jpg and cute.jpg + quotes
+  PhotoGallery.tsx    # Photo section with cute.jpg + quote (picnic.jpg section currently hidden)
   EventDetails.tsx    # Premium event details with sunset background, glassmorphism, parallax (i18n)
   Countdown.tsx       # Real-time countdown timer with grad.jpg background (i18n)
   Footer.tsx          # Minimal footer with names (i18n)
 /contexts
   LanguageContext.tsx # Language state management and translation provider
+  MusicContext.tsx    # Music state management (mute/unmute control)
 /locales
   kgz.json            # Kyrgyz translations (default language)
   ru.json             # Russian translations
@@ -105,7 +108,12 @@ next.config.mjs       # Next.js config (converted from .ts)
   - Aggressive autoplay: tries 3 times immediately (100ms, 500ms, 1000ms)
   - If blocked, starts on ANY interaction: mouse movement, mouse wheel, scroll, touch, click, keyboard, tab focus
   - Listens on both document and window for maximum coverage
-  - No visible controls (seamless background experience)
+  - **Music control button** (top-left corner):
+    - Mute/unmute toggle
+    - Glassmorphic design matching language switcher
+    - Gold speaker icon when playing, muted icon with X when muted
+    - Smooth fade-in animation
+    - Managed via React Context (MusicContext)
   - Volume set to 30% by default
   - Guaranteed to start with minimal user interaction
 
@@ -138,7 +146,7 @@ next.config.mjs       # Next.js config (converted from .ts)
   - All content centered on page
   - Clean gradient background (off-white tones: faf9f6 → f5f4f1 → faf9f6)
 - **Invitation Content (i18n):**
-  - **Intro heading**: "Чакыруу барагы" / "Приглашение на свадьбу" (text-xl → text-3xl, heading-serif font)
+  - **Intro heading**: "Чакыруу барагы" / "Приглашение на свадьбу" (text-3xl → text-5xl, heading-script/Great Vibes font, black color, italic)
   - **Greeting**: Currently empty in both languages (text-xl → text-3xl)
   - **Invitation message**: "Сиздерди, балдарыбыз" / "С безграничным уважением приглашаем Вас на торжество, посвящённое свадьбе наших детей —" (text-base → text-2xl)
   - **Names**: Мырзабек & Aйгеримдин (Kyrgyz) / Мырзабек & Айгерим (Russian) in gold script font (text-4xl → text-7xl)
@@ -158,14 +166,14 @@ next.config.mjs       # Next.js config (converted from .ts)
   - Responsive padding (py-12 sm:py-16 md:py-20)
 
 ### PhotoGallery Section (Our Story in Pictures)
-- **Two full-screen photo sections** showcasing picnic.jpg and cute.jpg
-- **Section 1 - Picnic Photo**:
+- **One full-screen photo section** showcasing cute.jpg (picnic.jpg section currently hidden)
+- **Section 1 - Picnic Photo - CURRENTLY HIDDEN**:
   - Two-column grid: Photo left, quote right
   - Landscape aspect ratio (4:3 on mobile, 3:2 on larger screens)
   - Kyrgyz quote: "Жашообуз бир бири менен өткөргөн ар бир учурда кубаныч менен толот."
   - Russian translation: "Каждое мгновение, проведённое вместе, наполняет нашу жизнь счастьем."
   - Slide-in from left animation
-- **Section 2 - Cute Photo**:
+- **Section 2 - Cute Photo (Currently the only visible section)**:
   - Two-column grid: Quote left, photo right (reversed layout)
   - Landscape aspect ratio (4:3 on mobile, 3:2 on larger screens)
   - Kyrgyz quote: "Сүйүү - бул биз менен бирге каралган келечек."
@@ -209,8 +217,8 @@ next.config.mjs       # Next.js config (converted from .ts)
   - Same responsive treatment as Card 1
   - Gold gradient location icon with border
   - "Дарек" / "Адрес" heading (text-2xl → text-4xl)
-  - Ресторан "Ак Булут" (text-lg → text-2xl, font-light)
-  - Микрорайон Улан 7/1, г. Бишкек / Улан Кичи Району 7/1, Бишкек шаары (text-lg → text-2xl, font-light)
+  - Микрорайон Улан 7/1, г. Бишкек / Улан Кичи Району 7/1, Бишкек шаары (text-lg → text-2xl, font-light) - displayed first
+  - Ресторан "Ак Булут" (text-lg → text-2xl, font-light) - displayed second
   - All content text now uses consistent sizing: text-lg sm:text-xl md:text-2xl font-light
   - **Interactive 2GIS map link button**:
     - Text: "Картада көрүү" / "Посмотреть на карте"
@@ -255,7 +263,7 @@ next.config.mjs       # Next.js config (converted from .ts)
 - **Invitation closing message (i18n)**: "Урматтоо менен той ээлери:" / "С уважением, той ээси:" (text-base → text-xl)
 - **Parents' names**: Кенжебек & Жылдыз in gold script font (text-4xl → text-7xl, fluid scaling)
 - Decorative divider with gold accents (responsive widths: w-10 → w-12)
-- Copyright text with gratitude message (text-xs → text-sm)
+- Copyright text with gratitude message (text-xs → text-sm) - displays "© [gratitude text]" without year
 - Navy background (#2c3e50)
 - Responsive padding (py-12 sm:py-16 md:py-20)
 - Fade-in animation with scroll trigger
@@ -271,11 +279,11 @@ next.config.mjs       # Next.js config (converted from .ts)
 ### Typography System (lib/theme.ts)
 **Centralized theme configuration for all text styles. No hardcoded fonts in components.**
 
-#### Display Font (Playfair Display - for names)
+#### Script Font (Great Vibes - for intro and names)
 - Family: `var(--font-great-vibes), cursive`
 - Sizes: sm (3xl-4xl), md (5xl-7xl), lg (7xl-9xl), xl (8xl-10rem)
-- Colors: gold, white
-- Usage: Couple names (XL - very large), parents' names (MD - large)
+- Colors: black/navy, gold, white
+- Usage: Intro heading (text-3xl → text-5xl, black), couple names (XL - very large, gold), parents' names (MD - large, gold)
 
 #### Serif Font (Playfair Display - for headings and elegant text)
 - Family: `var(--font-playfair), serif`
@@ -302,8 +310,8 @@ next.config.mjs       # Next.js config (converted from .ts)
 - `getBodyStyle(size, weight, color, options)` - Returns complete className for body text with optional leading/tracking
 
 #### Typography Philosophy
-- **Display (Playfair Display)**: Names only - elegant serif with Cyrillic support
-- **Serif (Playfair Display)**: Invitation messages, headings - elegant and fancy but readable
+- **Script (Great Vibes)**: Intro heading and names - highly decorative gold script
+- **Serif (Playfair Display)**: Invitation messages, headings - elegant and fancy but readable with Cyrillic support
 - **Sans-serif (Inter)**: Practical details - clean and modern
 
 ### Animations
@@ -386,10 +394,10 @@ npm start      # Start production server
 - **Default language**: Kyrgyz (kgz) - loads automatically on first visit
 - **Language persistence**: User's language choice saved to localStorage
 - **Cyrillic support**: Both Inter and Playfair Display fonts include Cyrillic subset for proper Russian and Kyrgyz text rendering
-- **Page flow**: EnvelopeIntro → Hero → EventDetails → PhotoGallery → Countdown → Footer (HeroWithPhoto currently hidden)
+- **Page flow**: EnvelopeIntro → Hero → EventDetails → PhotoGallery (cute.jpg only) → Countdown → Footer (HeroWithPhoto and picnic.jpg section currently hidden)
 - **Responsive images**: All images use Next.js Image component with proper sizing
 - **Real-time updates**: Countdown timer updates every second using JavaScript intervals
-- **Photo sections**: picnic.jpg and cute.jpg displayed with romantic quotes in alternating layouts
+- **Photo sections**: cute.jpg displayed with romantic quote (picnic.jpg section currently hidden)
 
 ## Recent Changes (Latest Commit)
 ### Commit: "change text+add music+add address link"
@@ -424,4 +432,18 @@ npm start      # Start production server
 - Both locale files (kgz.json, ru.json) updated with all new fields
 - Added `intro`, `time2`, `venueMapLink`, and `viewOnMap` keys
 - Updated existing text content for accuracy
+
+## Recent Updates (After Commit)
+
+**Typography & Styling Changes:**
+- **Intro heading styled**: 
+  - Font: Great Vibes (script) via `heading-script` class
+  - Size: `text-3xl sm:text-4xl md:text-5xl`
+  - Color: Black/navy `#2c3e50` for contrast on light background
+  - Style: Italic for added elegance
+
+**Layout Adjustments:**
+- **EventDetails venue card**: Swapped order of address and restaurant name (address now displays first)
+- **PhotoGallery**: Hidden picnic.jpg section (only cute.jpg section visible)
+- **Footer**: Removed year from copyright text (now displays "© [gratitude text]" instead of "© 2025 [gratitude text]")
 

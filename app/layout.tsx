@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { MusicProvider } from "@/contexts/MusicContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import MusicControl from "@/components/MusicControl";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -56,10 +58,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${playfairForNames.variable}`}>
       <body className="antialiased">
-        <LanguageProvider>
-          <LanguageSwitcher />
-          {children}
-        </LanguageProvider>
+        <MusicProvider>
+          <LanguageProvider>
+            <MusicControl />
+            <LanguageSwitcher />
+            {children}
+          </LanguageProvider>
+        </MusicProvider>
       </body>
     </html>
   );
