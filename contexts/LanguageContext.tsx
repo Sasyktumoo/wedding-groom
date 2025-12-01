@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import kgzTranslations from "@/locales/kgz.json";
 import ruTranslations from "@/locales/ru.json";
+import { getCurrentFamily } from "@/config/family.config";
 
 type Language = "kgz" | "ru";
 
@@ -27,13 +28,32 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const savedLanguage = localStorage.getItem("wedding-language") as Language;
     if (savedLanguage && (savedLanguage === "kgz" || savedLanguage === "ru")) {
       setLanguageState(savedLanguage);
-      setTranslations(savedLanguage === "kgz" ? kgzTranslations : ruTranslations);
+      updateTranslations(savedLanguage);
+    } else {
+      updateTranslations("kgz");
     }
   }, []);
 
+  const updateTranslations = (lang: Language) => {
+    const baseTranslations = lang === "kgz" ? kgzTranslations : ruTranslations;
+    const familyNames = getCurrentFamily(lang);
+    
+    // Merge base translations with dynamic family names
+    const mergedTranslations = {
+      ...baseTranslations,
+      footer: {
+        ...baseTranslations.footer,
+        fatherName: familyNames.fatherName,
+        motherName: familyNames.motherName,
+      }
+    };
+    
+    setTranslations(mergedTranslations as Translations);
+  };
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
-    setTranslations(lang === "kgz" ? kgzTranslations : ruTranslations);
+    updateTranslations(lang);
     localStorage.setItem("wedding-language", lang);
   };
 
