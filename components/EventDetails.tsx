@@ -57,13 +57,13 @@ export default function EventDetails() {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60 z-10" />
         <Image
-          src="/images/sunset.png"
+          src="/images/sunset.webp"
           alt="Beautiful sunset venue"
           fill
           className="object-cover object-center"
           priority={false}
           sizes="100vw"
-          quality={isMobile ? 60 : 75}
+          quality={isMobile ? 75 : 85}
           loading="lazy"
           placeholder="blur"
           blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
