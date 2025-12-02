@@ -15,40 +15,96 @@ export default function Hero({ showIntro = false }: HeroProps) {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 bg-gradient-to-br from-[#f8f6f0] via-[#faf8f2] to-[#f5f3ed] overflow-hidden">
-      {/* Elegant Background Decorations */}
-      <div className="absolute inset-0 opacity-30">
-        {/* Top Left Floral Corner */}
-        <div className="absolute top-0 left-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
-          <svg viewBox="0 0 200 200" className="w-full h-full text-[#d4af37]/40">
-            <path d="M0,50 Q20,30 40,50 Q60,70 50,90 Q40,110 20,100 Q0,90 0,50 M10,60 Q30,45 50,60" 
-                  fill="none" stroke="currentColor" strokeWidth="0.5"/>
-            <path d="M20,20 Q40,0 60,20 Q80,40 70,60 Q60,80 40,70 Q20,60 20,20" 
-                  fill="none" stroke="currentColor" strokeWidth="0.5"/>
-            <circle cx="30" cy="40" r="2" fill="currentColor" opacity="0.6"/>
-            <circle cx="50" cy="30" r="2" fill="currentColor" opacity="0.6"/>
-            <path d="M5,80 Q15,60 25,80 L20,100 L10,100 Z" 
-                  fill="none" stroke="currentColor" strokeWidth="0.5"/>
-          </svg>
-        </div>
-        
-        {/* Bottom Right Floral Corner */}
-        <div className="absolute bottom-0 right-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 transform rotate-180">
-          <svg viewBox="0 0 200 200" className="w-full h-full text-[#d4af37]/40">
-            <path d="M0,50 Q20,30 40,50 Q60,70 50,90 Q40,110 20,100 Q0,90 0,50 M10,60 Q30,45 50,60" 
-                  fill="none" stroke="currentColor" strokeWidth="0.5"/>
-            <path d="M20,20 Q40,0 60,20 Q80,40 70,60 Q60,80 40,70 Q20,60 20,20" 
-                  fill="none" stroke="currentColor" strokeWidth="0.5"/>
-            <circle cx="30" cy="40" r="2" fill="currentColor" opacity="0.6"/>
-            <circle cx="50" cy="30" r="2" fill="currentColor" opacity="0.6"/>
+    <section className="relative min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #faf8f3 0%, #f5f3ed 50%, #faf8f3 100%)',
+      }}>
+      
+      {/* Watercolor Texture Overlay */}
+      <div className="absolute inset-0 opacity-40" style={{
+        backgroundImage: `radial-gradient(ellipse at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                         radial-gradient(ellipse at 90% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                         radial-gradient(ellipse at 50% 50%, rgba(245, 235, 220, 0.3) 0%, transparent 60%)`
+      }}></div>
+
+      {/* Elegant Botanical Decorations */}
+      <div className="absolute inset-0">
+        {/* Top Left - Delicate Branch */}
+        <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60">
+          <svg viewBox="0 0 300 300" className="w-full h-full">
+            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
+              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
+              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
+              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
+              <path d="M70,82 L73,68 L76,82" opacity="0.6"/>
+              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
+              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
+              <ellipse cx="73" cy="63" rx="8" ry="15" opacity="0.5"/>
+              <path d="M15,90 Q25,85 35,95" opacity="0.6"/>
+              <path d="M18,92 C20,88 22,88 24,92" opacity="0.5"/>
+            </g>
           </svg>
         </div>
 
-        {/* Delicate Pattern Overlay */}
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-                           radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.03) 0%, transparent 50%)`
-        }}></div>
+        {/* Top Right - Elegant Leaves */}
+        <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60 transform scale-x-[-1]">
+          <svg viewBox="0 0 300 300" className="w-full h-full">
+            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
+              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
+              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
+              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
+              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
+              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
+              <path d="M15,90 Q25,85 35,95" opacity="0.6"/>
+            </g>
+          </svg>
+        </div>
+
+        {/* Bottom Left - Botanical Corner */}
+        <div className="absolute bottom-0 left-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60 transform scale-y-[-1]">
+          <svg viewBox="0 0 300 300" className="w-full h-full">
+            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
+              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
+              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
+              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
+              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
+              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
+            </g>
+          </svg>
+        </div>
+
+        {/* Bottom Right - Mirrored Branch */}
+        <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60 transform rotate-180">
+          <svg viewBox="0 0 300 300" className="w-full h-full">
+            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
+              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
+              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
+              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
+              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
+              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
+            </g>
+          </svg>
+        </div>
+
+        {/* Gold Sparkles/Confetti */}
+        <div className="absolute top-10 right-20 sm:top-16 sm:right-32 md:top-20 md:right-40">
+          <div className="w-2 h-2 bg-[#d4af37] rounded-full opacity-50"></div>
+        </div>
+        <div className="absolute top-24 right-16 sm:top-32 sm:right-24 md:top-40 md:right-32">
+          <div className="w-1.5 h-1.5 bg-[#d4af37] rounded-full opacity-40"></div>
+        </div>
+        <div className="absolute top-16 right-40 sm:top-24 sm:right-56 md:top-32 md:right-72">
+          <div className="w-1 h-1 bg-[#d4af37] rounded-full opacity-60"></div>
+        </div>
+        <div className="absolute bottom-20 left-16 sm:bottom-28 sm:left-24 md:bottom-36 md:left-32">
+          <div className="w-2 h-2 bg-[#d4af37] rounded-full opacity-50"></div>
+        </div>
+        <div className="absolute bottom-32 left-32 sm:bottom-40 sm:left-44 md:bottom-48 md:left-56">
+          <div className="w-1.5 h-1.5 bg-[#d4af37] rounded-full opacity-40"></div>
+        </div>
+        <div className="absolute bottom-16 left-24 sm:bottom-20 sm:left-32 md:bottom-24 md:left-40">
+          <div className="w-1 h-1 bg-[#d4af37] rounded-full opacity-60"></div>
+        </div>
       </div>
       {/* Content */}
       <motion.div
