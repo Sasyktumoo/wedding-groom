@@ -115,7 +115,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
                 {showIntro ? (
                   <h1 className="heading-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#d4af37] leading-tight">
                     <TypewriterText 
-                      text={`${t.hero.groomName} & ${t.hero.brideName}`} 
+                      text={`${t.hero.groomName} ${t.hero.ampersand} ${t.hero.brideName}`} 
                       delay={300}
                       speed={100}
                       onComplete={() => setTextStage(t.hero.weddingText ? 4 : 5)}
@@ -123,7 +123,7 @@ export default function Hero({ showIntro = false }: HeroProps) {
                   </h1>
                 ) : (
                   <h1 className="heading-script text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#d4af37] leading-tight">
-                    {t.hero.groomName} & {t.hero.brideName}
+                    {t.hero.groomName} {t.hero.ampersand} {t.hero.brideName}
                   </h1>
                 )}
               </motion.div>

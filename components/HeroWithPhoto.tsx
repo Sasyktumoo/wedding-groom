@@ -48,7 +48,7 @@ export default function HeroWithPhoto() {
             WebkitTextStroke: '1px rgba(0,0,0,0.3)'
           }}
         >
-          {t.hero.groomName} & {t.hero.brideName}
+          {t.hero.groomName} {t.hero.ampersand} {t.hero.brideName}
         </motion.h1>
 
         {/* Decorative divider */}
