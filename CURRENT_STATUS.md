@@ -13,6 +13,23 @@
 - **Playfair Display**: Latin + Cyrillic subsets (headings, elegant text)
 - **Great Vibes**: Script font for intro heading and names
 
+## Family Configuration (Multi-Deployment Support)
+- **Purpose**: Support separate deployments for groom's and bride's families
+- **Configuration file**: `/config/family.config.ts`
+- **How it works**:
+  - Defines parent names for both groom's and bride's families
+  - `FAMILY_SIDE` setting controls which family names to use ('groom' or 'bride')
+  - Each deployment uses the same codebase but different configuration
+- **Parent Names**:
+  - **Groom's Parents**: Кенжебек & Жылдыз (used in wedding-groom deployment)
+  - **Bride's Parents**: Кубанычбек & Венера (used in wedding-bride deployment)
+- **Deployment Strategy**:
+  - Update locale files (`kgz.json`, `ru.json`) with appropriate parent names
+  - Update `FAMILY_SIDE` in `family.config.ts` before pushing to each repository
+  - Push to `origin` (wedding-groom) for groom's version
+  - Push to `bride` (wedding-bride) for bride's version
+- **Current Configuration**: Set to 'bride' (Кубанычбек & Венера)
+
 ## Project Structure
 ```
 /app
@@ -35,6 +52,8 @@
 /contexts
   LanguageContext.tsx # Language state management and translation provider
   MusicContext.tsx    # Music state management (mute/unmute control)
+/config
+  family.config.ts    # Family configuration for multi-deployment support (groom/bride)
 /locales
   kgz.json            # Kyrgyz translations (default language)
   ru.json             # Russian translations
@@ -261,7 +280,11 @@ next.config.mjs       # Next.js config (converted from .ts)
 
 ### Footer
 - **Invitation closing message (i18n)**: "Урматтоо менен той ээлери:" / "С уважением, той ээси:" (text-base → text-xl)
-- **Parents' names**: Кенжебек & Жылдыз in gold script font (text-4xl → text-7xl, fluid scaling)
+- **Parents' names (i18n)**: Dynamic based on family configuration
+  - Groom's deployment: Кенжебек & Жылдыз
+  - Bride's deployment: Кубанычбек & Венера
+  - Font: Gold script font (text-4xl → text-7xl, fluid scaling)
+  - Configured via `config/family.config.ts` and locale files
 - Decorative divider with gold accents (responsive widths: w-10 → w-12)
 - Copyright text with gratitude message (text-xs → text-sm) - displays "© [gratitude text]" without year
 - Navy background (#2c3e50)
