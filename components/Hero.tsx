@@ -15,96 +15,115 @@ export default function Hero({ showIntro = false }: HeroProps) {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #faf8f3 0%, #f5f3ed 50%, #faf8f3 100%)',
-      }}>
+    <section className="relative min-h-screen flex items-center justify-center py-12 sm:py-16 md:py-20 overflow-hidden bg-gradient-to-br from-[#faf8f3] via-[#f5f3ed] to-[#faf8f3]">
       
-      {/* Watercolor Texture Overlay */}
-      <div className="absolute inset-0 opacity-40" style={{
-        backgroundImage: `radial-gradient(ellipse at 10% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
-                         radial-gradient(ellipse at 90% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
-                         radial-gradient(ellipse at 50% 50%, rgba(245, 235, 220, 0.3) 0%, transparent 60%)`
-      }}></div>
-
-      {/* Elegant Botanical Decorations */}
+      {/* Animated Golden Flowers in Corners */}
       <div className="absolute inset-0">
-        {/* Top Left - Delicate Branch */}
-        <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60">
-          <svg viewBox="0 0 300 300" className="w-full h-full">
-            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
-              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
-              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
-              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
-              <path d="M70,82 L73,68 L76,82" opacity="0.6"/>
-              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
-              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
-              <ellipse cx="73" cy="63" rx="8" ry="15" opacity="0.5"/>
-              <path d="M15,90 Q25,85 35,95" opacity="0.6"/>
-              <path d="M18,92 C20,88 22,88 24,92" opacity="0.5"/>
+        {/* Top Left Corner - Animated Flower */}
+        <motion.div 
+          className="absolute top-8 left-8 sm:top-12 sm:left-12 md:top-16 md:left-16 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 opacity-50"
+          animate={{ 
+            rotate: [0, 5, 0, -5, 0],
+            scale: [1, 1.05, 1, 1.05, 1]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+        >
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            <g stroke="#d4af37" fill="none" strokeWidth="0.8">
+              {/* Flower petals */}
+              <ellipse cx="30" cy="25" rx="8" ry="12" transform="rotate(-20 30 25)" opacity="0.6"/>
+              <ellipse cx="45" cy="20" rx="8" ry="12" transform="rotate(0 45 20)" opacity="0.6"/>
+              <ellipse cx="38" cy="35" rx="8" ry="12" transform="rotate(45 38 35)" opacity="0.6"/>
+              {/* Center */}
+              <circle cx="38" cy="25" r="3" fill="#d4af37" opacity="0.4"/>
+              {/* Leaves */}
+              <path d="M35,35 Q30,45 28,55" opacity="0.5"/>
+              <ellipse cx="25" cy="52" rx="5" ry="10" transform="rotate(-30 25 52)" opacity="0.5"/>
             </g>
           </svg>
-        </div>
+        </motion.div>
 
-        {/* Top Right - Elegant Leaves */}
-        <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60 transform scale-x-[-1]">
-          <svg viewBox="0 0 300 300" className="w-full h-full">
-            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
-              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
-              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
-              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
-              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
-              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
-              <path d="M15,90 Q25,85 35,95" opacity="0.6"/>
+        {/* Top Right Corner - Animated Flower */}
+        <motion.div 
+          className="absolute top-8 right-8 sm:top-12 sm:right-12 md:top-16 md:right-16 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 opacity-50"
+          animate={{ 
+            rotate: [0, -5, 0, 5, 0],
+            scale: [1, 1.05, 1, 1.05, 1]
+          }}
+          transition={{ 
+            duration: 10, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 1
+          }}
+        >
+          <svg viewBox="0 0 100 100" className="w-full h-full transform scale-x-[-1]">
+            <g stroke="#d4af37" fill="none" strokeWidth="0.8">
+              <ellipse cx="30" cy="25" rx="8" ry="12" transform="rotate(-20 30 25)" opacity="0.6"/>
+              <ellipse cx="45" cy="20" rx="8" ry="12" transform="rotate(0 45 20)" opacity="0.6"/>
+              <ellipse cx="38" cy="35" rx="8" ry="12" transform="rotate(45 38 35)" opacity="0.6"/>
+              <circle cx="38" cy="25" r="3" fill="#d4af37" opacity="0.4"/>
+              <path d="M35,35 Q30,45 28,55" opacity="0.5"/>
+              <ellipse cx="25" cy="52" rx="5" ry="10" transform="rotate(-30 25 52)" opacity="0.5"/>
             </g>
           </svg>
-        </div>
+        </motion.div>
 
-        {/* Bottom Left - Botanical Corner */}
-        <div className="absolute bottom-0 left-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60 transform scale-y-[-1]">
-          <svg viewBox="0 0 300 300" className="w-full h-full">
-            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
-              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
-              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
-              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
-              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
-              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
+        {/* Bottom Left Corner - Animated Flower */}
+        <motion.div 
+          className="absolute bottom-8 left-8 sm:bottom-12 sm:left-12 md:bottom-16 md:left-16 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 opacity-50"
+          animate={{ 
+            rotate: [0, 5, 0, -5, 0],
+            scale: [1, 1.05, 1, 1.05, 1]
+          }}
+          transition={{ 
+            duration: 9, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 2
+          }}
+        >
+          <svg viewBox="0 0 100 100" className="w-full h-full transform scale-y-[-1]">
+            <g stroke="#d4af37" fill="none" strokeWidth="0.8">
+              <ellipse cx="30" cy="25" rx="8" ry="12" transform="rotate(-20 30 25)" opacity="0.6"/>
+              <ellipse cx="45" cy="20" rx="8" ry="12" transform="rotate(0 45 20)" opacity="0.6"/>
+              <ellipse cx="38" cy="35" rx="8" ry="12" transform="rotate(45 38 35)" opacity="0.6"/>
+              <circle cx="38" cy="25" r="3" fill="#d4af37" opacity="0.4"/>
+              <path d="M35,35 Q30,45 28,55" opacity="0.5"/>
+              <ellipse cx="25" cy="52" rx="5" ry="10" transform="rotate(-30 25 52)" opacity="0.5"/>
             </g>
           </svg>
-        </div>
+        </motion.div>
 
-        {/* Bottom Right - Mirrored Branch */}
-        <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 opacity-60 transform rotate-180">
-          <svg viewBox="0 0 300 300" className="w-full h-full">
-            <g stroke="#d4af37" fill="none" strokeWidth="1" strokeLinecap="round">
-              <path d="M20,80 Q40,60 60,80 Q80,100 100,90" opacity="0.7"/>
-              <path d="M30,70 L35,55 L40,70" opacity="0.6"/>
-              <path d="M50,75 L52,60 L54,75" opacity="0.6"/>
-              <ellipse cx="35" cy="50" rx="8" ry="15" opacity="0.5"/>
-              <ellipse cx="52" cy="55" rx="7" ry="14" opacity="0.5"/>
+        {/* Bottom Right Corner - Animated Flower */}
+        <motion.div 
+          className="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 md:bottom-16 md:right-16 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 opacity-50"
+          animate={{ 
+            rotate: [0, -5, 0, 5, 0],
+            scale: [1, 1.05, 1, 1.05, 1]
+          }}
+          transition={{ 
+            duration: 11, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 3
+          }}
+        >
+          <svg viewBox="0 0 100 100" className="w-full h-full transform rotate-180">
+            <g stroke="#d4af37" fill="none" strokeWidth="0.8">
+              <ellipse cx="30" cy="25" rx="8" ry="12" transform="rotate(-20 30 25)" opacity="0.6"/>
+              <ellipse cx="45" cy="20" rx="8" ry="12" transform="rotate(0 45 20)" opacity="0.6"/>
+              <ellipse cx="38" cy="35" rx="8" ry="12" transform="rotate(45 38 35)" opacity="0.6"/>
+              <circle cx="38" cy="25" r="3" fill="#d4af37" opacity="0.4"/>
+              <path d="M35,35 Q30,45 28,55" opacity="0.5"/>
+              <ellipse cx="25" cy="52" rx="5" ry="10" transform="rotate(-30 25 52)" opacity="0.5"/>
             </g>
           </svg>
-        </div>
-
-        {/* Gold Sparkles/Confetti */}
-        <div className="absolute top-10 right-20 sm:top-16 sm:right-32 md:top-20 md:right-40">
-          <div className="w-2 h-2 bg-[#d4af37] rounded-full opacity-50"></div>
-        </div>
-        <div className="absolute top-24 right-16 sm:top-32 sm:right-24 md:top-40 md:right-32">
-          <div className="w-1.5 h-1.5 bg-[#d4af37] rounded-full opacity-40"></div>
-        </div>
-        <div className="absolute top-16 right-40 sm:top-24 sm:right-56 md:top-32 md:right-72">
-          <div className="w-1 h-1 bg-[#d4af37] rounded-full opacity-60"></div>
-        </div>
-        <div className="absolute bottom-20 left-16 sm:bottom-28 sm:left-24 md:bottom-36 md:left-32">
-          <div className="w-2 h-2 bg-[#d4af37] rounded-full opacity-50"></div>
-        </div>
-        <div className="absolute bottom-32 left-32 sm:bottom-40 sm:left-44 md:bottom-48 md:left-56">
-          <div className="w-1.5 h-1.5 bg-[#d4af37] rounded-full opacity-40"></div>
-        </div>
-        <div className="absolute bottom-16 left-24 sm:bottom-20 sm:left-32 md:bottom-24 md:left-40">
-          <div className="w-1 h-1 bg-[#d4af37] rounded-full opacity-60"></div>
-        </div>
+        </motion.div>
       </div>
       {/* Content */}
       <motion.div
