@@ -31,7 +31,7 @@
   PhotoGallery.tsx    # Photo section with cute.jpg + quote (picnic.jpg section currently hidden)
   EventDetails.tsx    # Premium event details with sunset background, glassmorphism, parallax (i18n)
   Countdown.tsx       # Real-time countdown timer with grad.jpg background (i18n)
-  Footer.tsx          # Elegant footer with golden decorations, sparkling effects, and parents' names (i18n)
+  Footer.tsx          # Minimal footer with names (i18n)
 /contexts
   LanguageContext.tsx # Language state management and translation provider
   MusicContext.tsx    # Music state management (mute/unmute control)

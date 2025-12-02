@@ -68,7 +68,7 @@ export default function Countdown() {
       </section>
 
       {/* Countdown Section with Gradient */}
-      <section className="relative bg-gradient-to-b from-[#faf9f6] via-[#3a4d5f] to-[#2c3e50] py-16 sm:py-20 md:py-24 pb-24 sm:pb-28 md:pb-32">
+      <section className="relative bg-gradient-to-b from-[#faf9f6] via-[#3a4d5f] to-[#2c3e50] py-16 sm:py-20 md:py-24">
         <div ref={ref} className="relative z-20 container mx-auto px-4 sm:px-6 max-w-6xl">
         <motion.div
           variants={staggerContainer}
@@ -139,9 +139,6 @@ export default function Countdown() {
           </motion.p>
         </motion.div>
       </div>
-
-      {/* Smooth transition to footer with decorative fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 sm:h-40 md:h-48 bg-gradient-to-b from-transparent to-[#2c3e50] z-10" />
     </section>
     </>
   );
