@@ -105,7 +105,7 @@ export default function PhotoGallery() {
             >
               <div className="relative aspect-[4/3] sm:aspect-[16/10] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-4 sm:ring-8 ring-white/50 w-full max-w-2xl mx-auto lg:max-w-none">
                 <Image
-                  src="/images/cute.jpg"
+                  src="/images/lake.jpg"
                   alt="Our love story continues"
                   fill
                   className="object-cover"
