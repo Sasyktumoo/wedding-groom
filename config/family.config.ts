@@ -4,7 +4,7 @@
 type FamilySide = 'groom' | 'bride';
 
 // Using let instead of const to avoid TypeScript literal type narrowing
-export let FAMILY_SIDE: FamilySide = 'bride'; // Change to 'bride' for bride's version
+export let FAMILY_SIDE: FamilySide = 'groom'; // Change to 'bride' for bride's version
 
 // Groom's Parents
 export const GROOM_PARENTS = {
